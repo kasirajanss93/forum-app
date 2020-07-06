@@ -1,0 +1,14 @@
+{
+  "name": "forum-app",
+  "version": "1.0.0",
+  "description": "This is a node js app that has the backend logic for the forum app.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "forum"
+  ],
+  "author": "Kasirajan Selladurai Selvakumari",
+  "license": "ISC"
+}
