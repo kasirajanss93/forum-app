@@ -1,5 +1,5 @@
 import express from "express";
-var app = express();
+const app = express();
 
 // Define request response in root URL (/)
 app.get("/", (req, res) => {
