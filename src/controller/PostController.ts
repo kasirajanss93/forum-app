@@ -1,16 +1,16 @@
-import { getRepository } from "typeorm";
+import { getConnection } from "typeorm";
 import { NextFunction, Request, Response } from "express";
 import { Post } from "../entity/Post";
 
 export class PostController {
-  private PostRepository = getRepository(Post);
+  // private PostRepository = getRepository(Post);
 
   async all(
     request: Request,
     response: Response,
     next: NextFunction
   ): Promise<any> {
-    return this.PostRepository.find();
+    return getConnection().getRepository(Post).find();
   }
 
   async one(
@@ -18,7 +18,7 @@ export class PostController {
     response: Response,
     next: NextFunction
   ): Promise<any> {
-    return this.PostRepository.findOne(request.params.id);
+    return getConnection().getRepository(Post).findOne(request.params.id);
   }
 
   async save(
@@ -26,7 +26,7 @@ export class PostController {
     response: Response,
     next: NextFunction
   ): Promise<any> {
-    return this.PostRepository.save(request.body);
+    return getConnection().getRepository(Post).save(request.body);
   }
 
   async remove(
@@ -34,7 +34,11 @@ export class PostController {
     response: Response,
     next: NextFunction
   ): Promise<any> {
-    const PostToRemove = await this.PostRepository.findOne(request.params.id);
-    await this.PostRepository.remove(PostToRemove);
+    const PostToRemove = await getConnection()
+      .getRepository(Post)
+      .findOne(request.params.id);
+    await getConnection().getRepository(Post).remove(PostToRemove);
   }
 }
+
+// export const postController = new PostController();
