@@ -1,4 +1,4 @@
-import { PostController } from "./controller/PostController";
+import { PostController } from "./controller/postController";
 
 export const Routes = [
   {

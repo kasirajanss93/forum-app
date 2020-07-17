@@ -1,16 +1,16 @@
-import { getConnection } from "typeorm";
+import { getConnection, getRepository } from "typeorm";
 import { NextFunction, Request, Response } from "express";
 import { Post } from "../entity/Post";
 
 export class PostController {
-  // private PostRepository = getRepository(Post);
+  private PostRepository = getRepository(Post);
 
   async all(
     request: Request,
     response: Response,
     next: NextFunction
   ): Promise<any> {
-    return getConnection().getRepository(Post).find();
+    return this.PostRepository.find();
   }
 
   async one(

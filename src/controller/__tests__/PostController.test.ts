@@ -1,7 +1,7 @@
 import * as typeorm from "typeorm";
 import { Post } from "../../entity/Post";
 import { createStubInstance, createSandbox, SinonSandbox, stub } from "sinon";
-import { PostController } from "../PostController";
+import { PostController } from "../postController";
 import * as chai from "chai";
 import sinonChai from "sinon-chai";
 
@@ -32,24 +32,15 @@ describe("Post Controller", () => {
           user: "user",
         },
       ];
-
-      const fakeRepository = givenRepositoryStub(postData, sandbox);
+      const spyOnSave = sandbox.spy(() => Promise.resolve(postData));
+      sandbox.stub(typeorm, "getRepository").returns({ find: postData } as any);
       const res: any = {};
 
       const postController = new PostController();
       const result = await postController.all(res, res, res);
 
       chai.expect(result).equal(postData);
-      chai.expect(fakeRepository.find).to.be.calledOnce;
+      chai.expect(spyOnSave.callCount).equal(1);
     });
   });
 });
-
-function givenRepositoryStub(postData: Post[], sandbox: SinonSandbox) {
-  const fakeRepository = createStubInstance(typeorm.Repository);
-  const fakeConnection = createStubInstance(typeorm.Connection);
-  fakeRepository.find.returns(postData as any);
-  fakeConnection.getRepository.withArgs(Post).returns(fakeRepository as any);
-  sandbox.stub(typeorm, "getConnection").returns(fakeConnection as any);
-  return fakeRepository;
-}
