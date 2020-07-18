@@ -18,7 +18,7 @@ export class PostController {
     response: Response,
     next: NextFunction
   ): Promise<any> {
-    return getConnection().getRepository(Post).findOne(request.params.id);
+    return this.PostRepository.findOne(request.params.id);
   }
 
   async save(
@@ -26,7 +26,7 @@ export class PostController {
     response: Response,
     next: NextFunction
   ): Promise<any> {
-    return getConnection().getRepository(Post).save(request.body);
+    return this.PostRepository.save(request.body);
   }
 
   async remove(
@@ -34,10 +34,8 @@ export class PostController {
     response: Response,
     next: NextFunction
   ): Promise<any> {
-    const PostToRemove = await getConnection()
-      .getRepository(Post)
-      .findOne(request.params.id);
-    await getConnection().getRepository(Post).remove(PostToRemove);
+    const postToRemove = await this.PostRepository.findOne(request.params.id);
+    await this.PostRepository.remove(postToRemove);
   }
 }
 
