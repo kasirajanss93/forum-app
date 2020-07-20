@@ -10,15 +10,6 @@ export default class Server {
 
     // register express routes from defined application routes
     this.initRoutes();
-
-    // This is for chat-http test
-    this._app.get("/test", (req: Request, res: Response) => {
-      res.writeHead(200, { "Content-Type": "text/plain" });
-      res.end("Hello World");
-    });
-
-    // start express server
-    this._app.listen(3000);
   }
 
   public get app(): express.Application {

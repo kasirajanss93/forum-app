@@ -13,6 +13,18 @@ chai.use(sinonChai);
 describe("Post Controller", () => {
   let sandbox: SinonSandbox;
 
+  function mockRepository() {
+    const repository = createStubInstance(typeorm.Repository);
+    const connectionManager = createStubInstance(typeorm.ConnectionManager);
+    const connection = createStubInstance(typeorm.Connection);
+    connectionManager.get.returns(connection as any);
+    connection.getRepository.returns(repository as any);
+    sandbox
+      .stub(typeorm, "getConnectionManager")
+      .returns(connectionManager as any);
+    return repository;
+  }
+
   beforeEach(() => {
     sandbox = createSandbox();
   });
@@ -35,9 +47,8 @@ describe("Post Controller", () => {
       },
     ];
 
-    const repository = createStubInstance(typeorm.Repository);
+    const repository = mockRepository();
     repository.find.returns(Promise.resolve(postData));
-    sandbox.stub(typeorm, "getRepository").returns(repository as any);
     const res: any = {};
 
     const postController = new PostController();
@@ -54,11 +65,10 @@ describe("Post Controller", () => {
       user: "user",
     };
 
-    const repository = createStubInstance(typeorm.Repository);
+    const repository = mockRepository();
     repository.findOne
       .withArgs(sinon.match(1))
       .returns(Promise.resolve(postData));
-    sandbox.stub(typeorm, "getRepository").returns(repository as any);
 
     const postController = new PostController();
     const res: any = {};
@@ -77,11 +87,10 @@ describe("Post Controller", () => {
       user: "user",
     };
 
-    const repository = createStubInstance(typeorm.Repository);
+    const repository = mockRepository();
     repository.save
       .withArgs(sinon.match(postData))
       .returns(Promise.resolve(postData));
-    sandbox.stub(typeorm, "getRepository").returns(repository as any);
 
     const postController = new PostController();
     const res: any = {};
@@ -100,21 +109,23 @@ describe("Post Controller", () => {
       user: "user",
     };
 
-    const repository = createStubInstance(typeorm.Repository);
+    const repository = await mockRepository();
     repository.findOne
       .withArgs(sinon.match(1))
       .returns(Promise.resolve(postData));
     repository.remove
       .withArgs(sinon.match(postData))
       .returns(Promise.resolve({}));
-    sandbox.stub(typeorm, "getRepository").returns(repository as any);
 
     const postController = new PostController();
-    const res: any = {};
+    const res: any = {
+      status: 
+    };
     const request: any = {
       params: { id: 1 },
     };
-    const result = await postController.remove(request, res, res);
+
+    const result = await postController.remove(request, res, () => {});
     expect(repository.remove).calledOnceWithExactly(postData);
   });
 });
