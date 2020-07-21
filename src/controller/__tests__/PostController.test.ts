@@ -7,7 +7,6 @@ import sinonChai from "sinon-chai";
 import * as express from "express";
 import * as sinon from "sinon";
 import { expect } from "chai";
-import MockExpressResponse from "mock-express-response";
 
 chai.use(sinonChai);
 

@@ -36,7 +36,6 @@
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
     "mocha": "^8.0.1",
-    "mock-express-response": "^0.2.2",
     "request": "^2.88.2",
     "sinon": "^9.0.2",
     "sinon-chai": "^3.5.0",
