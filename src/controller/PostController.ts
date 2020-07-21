@@ -13,7 +13,9 @@ export class PostController {
     next: NextFunction
   ): Promise<any> {
     try {
-      return this._postRepository.find();
+      const posts = await this._postRepository.find();
+
+      return response.send(posts);
     } catch (err) {
       next(err);
     }
@@ -31,7 +33,7 @@ export class PostController {
           .status(404)
           .json({ status: 404, error: "Post not found" });
       }
-      return post;
+      return response.send(post);
     } catch (err) {
       next(err);
     }
@@ -43,7 +45,8 @@ export class PostController {
     next: NextFunction
   ): Promise<any> {
     try {
-      return this._postRepository.save(request.body);
+      const post = await this._postRepository.save(request.body);
+      return response.send(post);
     } catch (err) {
       next(err);
     }
@@ -64,10 +67,8 @@ export class PostController {
           .json({ status: 404, error: "Post not found" });
       }
       const post = await this._postRepository.remove(postToRemove);
-
-      return response.status(204).send();
+      return response.status(204).send({});
     } catch (err) {
-      // console.log(err);
       next(err);
     }
   }

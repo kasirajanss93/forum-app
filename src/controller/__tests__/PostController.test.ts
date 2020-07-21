@@ -4,9 +4,10 @@ import { createStubInstance, createSandbox, SinonSandbox, stub } from "sinon";
 import { PostController } from "../postController";
 import * as chai from "chai";
 import sinonChai from "sinon-chai";
-import { Request } from "express";
+import * as express from "express";
 import * as sinon from "sinon";
 import { expect } from "chai";
+import MockExpressResponse from "mock-express-response";
 
 chai.use(sinonChai);
 
@@ -49,12 +50,14 @@ describe("Post Controller", () => {
 
     const repository = mockRepository();
     repository.find.returns(Promise.resolve(postData));
-    const res: any = {};
-
+    const func: any = {};
+    const res = {
+      send: sinon.spy()
+    };
     const postController = new PostController();
-    const result = await postController.all(res, res, res);
+    await postController.all(func, res as any, func);
 
-    chai.expect(result).equal(postData);
+    expect(res.send).to.be.calledOnceWith(postData);
     expect(repository.find).to.be.calledOnce;
   });
 
@@ -71,12 +74,12 @@ describe("Post Controller", () => {
       .returns(Promise.resolve(postData));
 
     const postController = new PostController();
-    const res: any = {};
+    const res: any = { send: sinon.spy() };
     const request: any = {
       params: { id: 1 }
     };
-    const result = await postController.one(request, res, res);
-    chai.expect(result).equal(postData);
+    await postController.one(request, res, () => {});
+    expect(res.send).to.be.calledOnceWith(postData);
     expect(repository.findOne).to.be.calledOnce;
   });
 
@@ -93,12 +96,12 @@ describe("Post Controller", () => {
       .returns(Promise.resolve(postData));
 
     const postController = new PostController();
-    const res: any = {};
+    const res: any = { send: sinon.spy() };
     const request: any = {
       body: postData
     };
-    const result = await postController.save(request, res, res);
-    chai.expect(result).equal(postData);
+    const result = await postController.save(request, res, () => {});
+    expect(res.send).to.be.calledOnceWith(postData);
     expect(repository.save).to.be.calledOnce;
   });
 
@@ -118,12 +121,16 @@ describe("Post Controller", () => {
       .returns(Promise.resolve({}));
 
     const postController = new PostController();
-    const res: any = {};
+
     const request: any = {
       params: { id: 1 }
     };
-
-    const result = await postController.remove(request, res, () => {});
+    const res = {
+      status: () => res,
+      send: sinon.spy()
+    };
+    await postController.remove(request, res as any, () => {});
     expect(repository.remove).calledOnceWithExactly(postData);
+    expect(res.send).to.be.calledOnce;
   });
 });

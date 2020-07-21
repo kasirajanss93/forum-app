@@ -17,11 +17,11 @@ describe("API integration tests", () => {
 
   const postData = {
     user: "example@example.com",
-    content: "Example content",
+    content: "Example content"
   };
 
   describe("POST /posts", () => {
-    it("responds with new posts", (done) => {
+    it("responds with new posts", done => {
       factory.app
         .post("/posts")
         .send(postData)
@@ -43,7 +43,7 @@ describe("API integration tests", () => {
   });
 
   describe("GET /posts", () => {
-    it("respond with 200 status", (done) => {
+    it("respond with 200 status", done => {
       factory.app
         .get("/posts")
         .set("Accept", "application/json")
@@ -64,7 +64,7 @@ describe("API integration tests", () => {
   });
 
   describe("GET /posts/:id", () => {
-    it("respond with 200 status", (done) => {
+    it("respond with 200 status", done => {
       let id;
       factory.app
         .get("/posts")
@@ -100,7 +100,7 @@ describe("API integration tests", () => {
   });
 
   describe("DELETE /posts/:id", () => {
-    it("respond with 200 status", (done) => {
+    it("respond with 204 status", done => {
       let id;
       factory.app
         .get("/posts")
@@ -115,7 +115,6 @@ describe("API integration tests", () => {
             factory.app
               .delete("/posts/" + id)
               .set("Accept", "application/json")
-              .expect("Content-Type", /json/)
               .expect(204)
               .end((err, res) => {
                 try {

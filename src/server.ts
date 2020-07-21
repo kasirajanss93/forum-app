@@ -17,7 +17,7 @@ export default class Server {
   }
 
   private initRoutes() {
-    Routes.forEach((route) => {
+    Routes.forEach(route => {
       this._app[route.method](
         route.route,
         (req: Request, res: Response, next: NextFunction) => {
@@ -26,19 +26,7 @@ export default class Server {
             res,
             next
           );
-          if (result instanceof Promise) {
-            result
-              .then((response) =>
-                response !== null && response !== undefined
-                  ? res.send(response)
-                  : undefined
-              )
-              .catch((err) => {
-                res.status(500).send(err);
-              });
-          } else if (result !== null && result !== undefined) {
-            res.json(result);
-          }
+          result.then(() => next).catch(err => next(err));
         }
       );
     });
