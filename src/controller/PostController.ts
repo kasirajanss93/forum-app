@@ -67,7 +67,7 @@ export class PostController {
 
       return response.status(204).send();
     } catch (err) {
-      console.log(err);
+      // console.log(err);
       next(err);
     }
   }

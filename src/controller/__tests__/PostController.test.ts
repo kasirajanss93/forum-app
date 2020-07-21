@@ -38,13 +38,13 @@ describe("Post Controller", () => {
       {
         id: 1,
         content: "Hello world",
-        user: "user",
+        user: "user"
       },
       {
         id: 2,
         content: "Hello world",
-        user: "user",
-      },
+        user: "user"
+      }
     ];
 
     const repository = mockRepository();
@@ -62,7 +62,7 @@ describe("Post Controller", () => {
     const postData: Post = {
       id: 1,
       content: "Hello world",
-      user: "user",
+      user: "user"
     };
 
     const repository = mockRepository();
@@ -73,7 +73,7 @@ describe("Post Controller", () => {
     const postController = new PostController();
     const res: any = {};
     const request: any = {
-      params: { id: 1 },
+      params: { id: 1 }
     };
     const result = await postController.one(request, res, res);
     chai.expect(result).equal(postData);
@@ -84,7 +84,7 @@ describe("Post Controller", () => {
     const postData: Post = {
       id: 1,
       content: "Hello world",
-      user: "user",
+      user: "user"
     };
 
     const repository = mockRepository();
@@ -95,7 +95,7 @@ describe("Post Controller", () => {
     const postController = new PostController();
     const res: any = {};
     const request: any = {
-      body: postData,
+      body: postData
     };
     const result = await postController.save(request, res, res);
     chai.expect(result).equal(postData);
@@ -106,7 +106,7 @@ describe("Post Controller", () => {
     const postData: Post = {
       id: 1,
       content: "Hello world",
-      user: "user",
+      user: "user"
     };
 
     const repository = await mockRepository();
@@ -118,11 +118,9 @@ describe("Post Controller", () => {
       .returns(Promise.resolve({}));
 
     const postController = new PostController();
-    const res: any = {
-      status: 
-    };
+    const res: any = {};
     const request: any = {
-      params: { id: 1 },
+      params: { id: 1 }
     };
 
     const result = await postController.remove(request, res, () => {});
