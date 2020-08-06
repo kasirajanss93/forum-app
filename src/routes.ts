@@ -1,28 +1,53 @@
 import { PostController } from "./controller/PostController";
+import { UserController } from "./controller/UserController";
 
 export const Routes = [
   {
     method: "get",
     route: "/posts",
     controller: PostController,
-    action: "all",
+    action: "all"
   },
   {
     method: "get",
     route: "/posts/:id",
     controller: PostController,
-    action: "one",
+    action: "one"
   },
   {
     method: "post",
     route: "/posts",
     controller: PostController,
-    action: "save",
+    action: "save"
   },
   {
     method: "delete",
     route: "/posts/:id",
     controller: PostController,
-    action: "remove",
+    action: "remove"
   },
+  {
+    method: "get",
+    route: "/users",
+    controller: UserController,
+    action: "all"
+  },
+  {
+    method: "get",
+    route: "/users/:id",
+    controller: UserController,
+    action: "one"
+  },
+  {
+    method: "post",
+    route: "/users",
+    controller: UserController,
+    action: "save"
+  },
+  {
+    method: "delete",
+    route: "/users/:id",
+    controller: UserController,
+    action: "remove"
+  }
 ];
