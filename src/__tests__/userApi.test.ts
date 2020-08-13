@@ -4,14 +4,16 @@ import TestFactory from "./testFactory";
 import { User } from "../entity/User";
 import { expect } from "chai";
 
-describe("API integration tests", () => {
+describe("User API integration tests", () => {
   const factory: TestFactory = new TestFactory();
   before(async () => {
     await factory.init();
   });
 
   after(async () => {
-    await factory.connection.getRepository(User).clear();
+    await factory.connection
+      .getRepository(User)
+      .query('TRUNCATE "users" CASCADE');
     await factory.close();
   });
 

@@ -5,7 +5,8 @@
   "main": "build/index.js",
   "scripts": {
     "start": "ts-node src/index.ts",
-    "test": "mocha -r ts-node/register 'src/**/**/*test.ts' --exit"
+    "test": "mocha -r ts-node/register 'src/**/**/*test.ts' --exit",
+    "typeorm": "ts-node ./node_modules/typeorm/cli.js"
   },
   "repository": {
     "type": "git",

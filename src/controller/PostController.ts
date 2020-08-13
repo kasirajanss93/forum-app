@@ -17,7 +17,7 @@ export class PostController {
 
       return response.send(posts);
     } catch (err) {
-      next(err);
+      return response.status(500).json({ status: 500, error: err.message });
     }
   }
 
@@ -35,7 +35,7 @@ export class PostController {
       }
       return response.send(post);
     } catch (err) {
-      next(err);
+      return response.status(500).json({ status: 500, error: err.message });
     }
   }
 
@@ -48,7 +48,7 @@ export class PostController {
       const post = await this._postRepository.save(request.body);
       return response.send(post);
     } catch (err) {
-      next(err);
+      return response.status(500).json({ status: 500, error: err.message });
     }
   }
 
@@ -69,7 +69,7 @@ export class PostController {
       const post = await this._postRepository.remove(postToRemove);
       return response.status(204).send({});
     } catch (err) {
-      next(err);
+      return response.status(500).json({ status: 500, error: err.message });
     }
   }
 }

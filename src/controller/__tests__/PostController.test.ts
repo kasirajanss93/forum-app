@@ -36,14 +36,32 @@ describe("Post Controller", () => {
   it("Should retrive all the post data", async () => {
     const postData: Post[] = [
       {
-        id: 1,
+        id: "123",
         content: "Hello world",
-        user: "user"
+        user: "user123",
+        title: "Hello world",
+        date: new Date(),
+        reactions: {
+          thumbsUp: 0,
+          hooray: 0,
+          heart: 0,
+          rocket: 0,
+          eyes: 0
+        }
       },
       {
-        id: 2,
+        id: "456",
         content: "Hello world",
-        user: "user"
+        user: "user123",
+        title: "Hello world",
+        date: new Date(),
+        reactions: {
+          thumbsUp: 0,
+          hooray: 0,
+          heart: 0,
+          rocket: 0,
+          eyes: 0
+        }
       }
     ];
 
@@ -62,9 +80,18 @@ describe("Post Controller", () => {
 
   it("Should retrive the correct post data on findOne", async () => {
     const postData: Post = {
-      id: 1,
+      id: "123",
       content: "Hello world",
-      user: "user"
+      user: "user123",
+      title: "Hello world",
+      date: new Date(),
+      reactions: {
+        thumbsUp: 0,
+        hooray: 0,
+        heart: 0,
+        rocket: 0,
+        eyes: 0
+      }
     };
 
     const repository = mockRepository();
@@ -84,9 +111,18 @@ describe("Post Controller", () => {
 
   it("Should save the correct post data on save", async () => {
     const postData: Post = {
-      id: 1,
+      id: "123",
       content: "Hello world",
-      user: "user"
+      user: "user123",
+      title: "Hello world",
+      date: new Date(),
+      reactions: {
+        thumbsUp: 0,
+        hooray: 0,
+        heart: 0,
+        rocket: 0,
+        eyes: 0
+      }
     };
 
     const repository = mockRepository();
@@ -106,9 +142,18 @@ describe("Post Controller", () => {
 
   it("Should remove the correct post data on delete", async () => {
     const postData: Post = {
-      id: 1,
+      id: "123",
       content: "Hello world",
-      user: "user"
+      user: "user123",
+      title: "Hello world",
+      date: new Date(),
+      reactions: {
+        thumbsUp: 0,
+        hooray: 0,
+        heart: 0,
+        rocket: 0,
+        eyes: 0
+      }
     };
 
     const repository = await mockRepository();

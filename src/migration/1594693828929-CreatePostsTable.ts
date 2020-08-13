@@ -11,17 +11,31 @@ export class CreatePostsTable1594693828929 implements MigrationInterface {
             type: "uuid",
             isPrimary: true,
             generationStrategy: "uuid",
-            default: "uuid_generate_v4()",
+            default: "uuid_generate_v4()"
           },
           {
             name: "content",
-            type: "text",
+            type: "text"
           },
           {
             name: "user",
-            type: "varchar",
+            type: "uuid"
           },
-        ],
+          {
+            name: "title",
+            type: "text"
+          },
+          {
+            name: "date",
+            type: "timestamp with time zone"
+          },
+          {
+            name: "reactions",
+            type: "json",
+            default:
+              '\'{ "thumbsUp": 0, "hooray": 0, "heart": 0, "rocket": 0, "eyes": 0 }\''
+          }
+        ]
       }),
       true
     );
